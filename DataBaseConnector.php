@@ -52,4 +52,18 @@
         echo($query);
         $status = $driver->query($query);
     }
+    function arrayTipo($tipo){
+        $array = Array(); 
+        $result = ListarPost();
+        while ($post = $result->fetchArray(1))
+            if($post['Projeto'] == $tipo)
+                array_push($array,$post);
+        return $array;
+    }
+    function arrayPost(){
+        return arrayTipo(0);
+    }
+    function arrayProjetos(){
+        return arrayTipo(1);
+    }
 ?>  
