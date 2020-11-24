@@ -24,26 +24,42 @@ function EscreverArquivo($dir,$post,$TempleteFile){
     fwrite($PostHtml,$ConteudoTotal);
     fclose($PostHtml);
 }
-$posts = ListarPost(); //Conteudo Retirado do banco de dados
-$Posts_Array = array();//Array Para Posts do Blog
-$Projetos_Array = array();//Array Para Projetos
-//Separando os Posts dos projetos
-while ($post = $posts->fetchArray(1)){
-    if($post['Projeto'] == 0)
-    array_push($Posts_Array,$post);
-    else// == 1
-    array_push($Projetos_Array,$post);
+function escreveItemIdex($Titulo,$Subtitulo,$Data,$Link){
+    return '<div class="list-group">
+                    <a href="'.$Titulo.'.html" class="list-group-item list-group-item-action flex-column align-items-start active">
+                   <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">'.$Titulo.'</h5>
+                        <small>Postado em: '.$Data.'</small>
+                    </div>
+                    <p class="mb-1">'.$Subtitulo.'</p>
+                </a>
+            </div>';
 }
+function escrverIndex($dir,$ConteudoArray,$TempleteFile){
+    //Geração dos indexs
+    $IndexFile = fopen($dir.'/'.str_replace('./','',$dir).'.html','x');
+    $pagina = file_get_contents($TempleteFile);
+    $index = '';
+    foreach($ConteudoArray as $Post){
+        $index = $index.escreveItemIdex($Post['Titulo'],$Post['Subtitulo'],$Post['DataPost'],'Test'); 
+    }
+    $pagina = str_replace('{{Index}}',$index,$pagina);
+    fwrite($IndexFile,$pagina);
+    fclose($IndexFile);
+}
+$Posts_Array = arrayPost();//Array Para Posts do Blog
+$Projetos_Array = arrayProjetos();//Array Para Projetos
+//Separando os Posts dos projetos
 Limpar($GLOBALS['PostsDir']);//Apagando posts antigos
 Limpar($GLOBALS['PorjetosDir']);//Apagando Projetos antigos
 foreach($Posts_Array as $post)//Escrevdo novos posts
     EscreverArquivo($GLOBALS['PostsDir'],$post,$GLOBALS['TemplateDir'].'/'.'BlogPost.html');
 foreach($Projetos_Array as $projetos)//Escrevdo novos projetos
     EscreverArquivo($GLOBALS['PorjetosDir'],$projetos,$GLOBALS['TemplateDir'].'/'.'Projeto.html');
-//Gerar index do Blog
-$postIndex = '';
-//Gerar index dos Projetos 
-$projectIndex = '';
 
-echo('<h3>Posts index</h3><br>');
+//Gerar index do Blog
+escrverIndex($GLOBALS['PostsDir'],$Posts_Array,$GLOBALS['TemplateDir'].'/'.'indexBlog.html');
+//Gerar index dos Projetos 
+escrverIndex($GLOBALS['PorjetosDir'],$Projetos_Array,$GLOBALS['TemplateDir'].'/'.'IndexProjetos.html');
+header('Location: ./index.html')
 ?>
