@@ -100,8 +100,8 @@ function drawEditor($titulo,$subtitulo,$data,$conteudo,$Tipo,$codigo) {
             }
         }else{
             
-            $PostCount = 0;
-            $ProjetoCount = 0;
+            $PostCount = count(arrayPost());
+            $ProjetoCount = count(arrayProjetos());
             echo('<h2 class="text-center mb-2">Numero todal de post: '.$PostCount.'</h2>
                   <h2 class="text-center mb-2">Numero todal de projetos: '.$ProjetoCount.'</h2>');
             
