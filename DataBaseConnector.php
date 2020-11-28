@@ -13,7 +13,7 @@
     //Função retorna todos os posts
     function ListarPost(){
         $driver = new sqlite3('./Blog.db');
-        $query = "SELECT * FROM 'posts'";
+        $query = "SELECT * FROM 'posts' ORDER BY datetime('DataPost') ASC";
         return $driver->query($query);
     }
     //Função retorna um post buscado
