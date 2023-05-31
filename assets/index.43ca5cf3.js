@@ -241,7 +241,7 @@ Add a <Suspense fallback=...> component higher in the tree to provide a loading 
         width: 40rem;
       `)}
   }
-`,v6=()=>s.exports.createElement(s.exports.Fragment,null,s.exports.createElement(h6,null,s.exports.createElement(g6,null,s.exports.createElement(p6,{color:"#e07245"}))),s.exports.createElement(Rn,null)),y6=s.exports.lazy(()=>r5(()=>import("./CanvasBG.1c295208.js"),[])),E6=ee.div`
+`,v6=()=>s.exports.createElement(s.exports.Fragment,null,s.exports.createElement(h6,null,s.exports.createElement(g6,null,s.exports.createElement(p6,{color:"#e07245"}))),s.exports.createElement(Rn,null)),y6=s.exports.lazy(()=>r5(()=>import("./CanvasBG.6f471b69.js"),[])),E6=ee.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
